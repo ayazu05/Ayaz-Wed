@@ -31,8 +31,6 @@
             overflow: hidden;
         }
 
-        /* This is the ONLY element that scrolls now.
-           The background layer sits outside it, so it never moves. */
         .content-scroll {
             position: relative;
             z-index: 10;
@@ -50,7 +48,6 @@
         .content-scroll::-webkit-scrollbar { width: 3px; }
         .content-scroll::-webkit-scrollbar-thumb { background: #F4C542; border-radius: 10px; }
 
-        /* FIXED BACKGROUND CONTAINER */
         .bg-fixed-container {
             position: absolute;
             top: 0; left: 0;
@@ -70,7 +67,6 @@
         #bg-top { opacity: 1; z-index: 2; }
         #bg-bottom { opacity: 0; z-index: 1; }
 
-        /* OVERLAY ENVELOPE SCREEN */
         .video-overlay {
             position: absolute;
             top: 0; left: 0;
@@ -93,7 +89,6 @@
             object-fit: cover; display: block;
         }
 
-        /* SPARKLES */
         .sparkle {
             position: absolute; width: 3px; height: 3px;
             background: #F4C542; border-radius: 50%;
@@ -108,7 +103,6 @@
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* FOREGROUND CONTENT */
         .main-content {
             padding: 20px 15px 40px;
             text-align: center;
@@ -304,17 +298,15 @@
 
         <!-- FIXED BACKGROUND LAYER -->
         <div class="bg-fixed-container">
-            <!-- First Background Video/Image -->
             <video id="bg-top" class="bg-media" autoplay loop muted playsinline preload="auto">
                 <source src="bg.mp4" type="video/mp4">
             </video>
-            <!-- Second Background Video/Image -->
             <video id="bg-bottom" class="bg-media" autoplay loop muted playsinline preload="auto">
                 <source src="bg2.mp4" type="video/mp4">
             </video>
         </div>
 
-        <!-- SCROLLABLE CONTENT (background never moves) -->
+        <!-- SCROLLABLE CONTENT -->
         <div class="content-scroll" id="content-scroll">
         <div class="main-content">
             
@@ -366,10 +358,10 @@
 
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">SEND YOUR BLESSINGS</div>
-                <form onsubmit="event.preventDefault(); alert('Thank you for your blessings!');">
-                    <input type="text" placeholder="Your Full Name" required>
-                    <textarea rows="3" placeholder="Write your warm wishes..."></textarea>
-                    <button type="submit" class="btn-submit">SEND BLESSINGS</button>
+                <form id="blessingForm">
+                    <input type="text" name="name" placeholder="Your Full Name" required>
+                    <textarea name="message" rows="3" placeholder="Write your warm wishes..." required></textarea>
+                    <button type="submit" class="btn-submit" id="submitBtn">SEND BLESSINGS</button>
                 </form>
             </div>
 
@@ -394,15 +386,13 @@
             if (envelopeVid) envelopeVid.play().catch(err => console.log('envelope play failed:', err));
             if (bgMusic) bgMusic.play().catch(err => console.log('music play failed:', err));
 
-            // Play bg-top immediately
             if (bgTop) bgTop.play().catch(err => console.log('bg-top play failed:', err));
 
-            // bg-bottom: force load + play, and log any real error (404, decode error, etc.)
             if (bgBottom) {
-                bgBottom.load(); // ensures browser actually starts fetching bg2.mp4
+                bgBottom.load();
                 bgBottom.play().catch(err => console.log('bg-bottom play failed:', err));
                 bgBottom.addEventListener('error', () => {
-                    console.error('bg2.mp4 FAILED TO LOAD. Check the file path/name on GitHub.');
+                    console.error('bg2.mp4 FAILED TO LOAD.');
                 });
             }
 
@@ -412,9 +402,6 @@
             }, 1200);
         }
 
-        // SCROLL LISTENER — single stable boundary point, no flicker.
-        // Find the first section marked data-bg="bottom" (the Walima section)
-        // and switch backgrounds once the scroll passes its midpoint.
         const firstBottomSection = document.querySelector('.scroll-section[data-bg="bottom"]');
         let isShowingBottom = false;
 
@@ -422,9 +409,8 @@
             if (!firstBottomSection) return;
             const rect = firstBottomSection.getBoundingClientRect();
             const wrapperRect = contentScroll.getBoundingClientRect();
-            // Position of the section's top relative to the scroll wrapper's viewport
             const relativeTop = rect.top - wrapperRect.top;
-            const triggerPoint = wrapperRect.height * 0.4; // switch when section top reaches 40% down the viewport
+            const triggerPoint = wrapperRect.height * 0.4;
 
             const shouldShowBottom = relativeTop <= triggerPoint;
 
@@ -442,10 +428,8 @@
         }
 
         contentScroll.addEventListener('scroll', updateBackground);
-        // Run once in case the page loads already scrolled
         updateBackground();
 
-        // Floating Gold Sparkles
         for (let i = 0; i < 15; i++) {
             let spark = document.createElement('div');
             spark.className = 'sparkle';
@@ -455,7 +439,6 @@
             cardWrapper.appendChild(spark);
         }
 
-        // Scratch Card Logic
         const canvas = document.getElementById('scratch-canvas');
         if (canvas) {
             const ctx = canvas.getContext('2d');
@@ -501,7 +484,6 @@
             canvas.addEventListener('touchmove', scratch, {passive: true});
         }
 
-        // Countdown Logic
         const weddingDate = new Date("Dec 7, 2026 10:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -513,6 +495,30 @@
                 document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
             }
         }, 1000);
+
+        // FORM SUBMISSION SCRIPT
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbwV06uXl4g8AljXDcIPNAmw2ISLCebaHAWz5LQmCPHS8DDPV1A1uAodGb7dbo1dHQPHHQ/exec';
+        const form = document.getElementById('blessingForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.innerText = 'SENDING...';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    alert('Thank you for your blessings! ✨');
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'SEND BLESSINGS';
+                })
+                .catch(error => {
+                    alert('Something went wrong. Please try again!');
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = 'SEND BLESSINGS';
+                });
+        });
     </script>
 </body>
 </html>
