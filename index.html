@@ -1,71 +1,3 @@
-Skip to content
-ayazu05
-Ayaz-Wed
-Repository navigation
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security and quality
-Insights
-Settings
-Ayaz-Wed
-/
-index.html
-in
-main
-
-Edit
-
-Preview
-Indent mode
-
-Spaces
-Indent size
-
-4
-Line wrap mode
-
-No wrap
-Editing index.html file contents
-  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
- 10
- 11
- 12
- 13
- 14
- 15
- 16
- 17
- 18
- 19
- 20
- 21
- 22
- 23
- 24
- 25
- 26
- 27
- 28
- 29
- 30
- 31
- 32
- 33
- 34
- 35
- 36
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,5 +34,483 @@ Editing index.html file contents
         /* This is the ONLY element that scrolls now.
            The background layer sits outside it, so it never moves. */
         .content-scroll {
-Use Control + Shift + m to toggle the tab key moving focus. Alternatively, use esc then tab to move to the next interactive element on the page.
- 
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            overflow-y: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
+        }
+
+        .content-scroll.unlocked {
+            overflow-y: auto;
+        }
+
+        .content-scroll::-webkit-scrollbar { width: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #F4C542; border-radius: 10px; }
+
+        /* FIXED BACKGROUND CONTAINER */
+        .bg-fixed-container {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-media {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: opacity 0.6s ease;
+        }
+
+        #bg-top { opacity: 1; z-index: 2; }
+        #bg-bottom { opacity: 0; z-index: 1; }
+
+        /* OVERLAY ENVELOPE SCREEN */
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1000;
+            background: #0d0603;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .video-overlay.fade-out {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        .envelope-video {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+        }
+
+        /* SPARKLES */
+        .sparkle {
+            position: absolute; width: 3px; height: 3px;
+            background: #F4C542; border-radius: 50%;
+            pointer-events: none; opacity: 0;
+            animation: floatUp 6s infinite linear;
+            z-index: 5;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* FOREGROUND CONTENT */
+        .main-content {
+            padding: 20px 15px 40px;
+            text-align: center;
+        }
+
+        .scroll-section {
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 36px 12px;
+        }
+
+        .scroll-section:first-child {
+            padding-top: 50px;
+        }
+
+        .scroll-section:last-child {
+            padding-bottom: 60px;
+        }
+
+        .header-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #F3E9D2;
+            font-weight: 600;
+            margin-bottom: 14px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 14px rgba(0,0,0,0.95);
+        }
+
+        h1 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 58px;
+            color: #F4C542;
+            margin: 6px 0 14px 0;
+            line-height: 1.15;
+            font-weight: 400;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 18px rgba(0,0,0,0.95);
+        }
+
+        .section-heading {
+            font-family: 'Cinzel', serif;
+            font-size: 17px;
+            color: #F4C542;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 14px rgba(0,0,0,0.95);
+        }
+
+        .body-stylish {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: #F3E9D2;
+            letter-spacing: 0.6px;
+            line-height: 1.9;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.95);
+        }
+
+        .highlight-text {
+            color: #F4C542;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.95);
+        }
+
+        .square-scratch-wrapper {
+            position: relative;
+            width: 220px; height: 90px;
+            margin: 20px auto 10px;
+            border-radius: 8px;
+            border: 1.5px solid #F4C542;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.9);
+            background: rgba(13, 6, 3, 0.75);
+        }
+
+        .scratch-secret-content {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .scratch-secret-content p {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #F3E9D2;
+            font-weight: 700;
+        }
+
+        .scratch-secret-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            color: #F4C542;
+            margin-top: 4px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        #scratch-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .timer-grid {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px; margin-top: 15px; width: 100%;
+        }
+
+        .timer-unit {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 2px;
+            border-radius: 6px;
+            border: 1.5px solid #F4C542;
+            box-shadow: 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        .timer-unit span { 
+            font-size: 18px; font-weight: 700; 
+            color: #F4C542; font-family: 'Cinzel', serif; 
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+        }
+        
+        .timer-unit p { 
+            font-size: 8px; color: #F3E9D2; 
+            font-weight: 700; letter-spacing: 1px; margin-top: 2px;
+        }
+
+        .map-btn {
+            display: inline-block; width: 85%; padding: 11px;
+            background: rgba(0, 0, 0, 0.7); color: #F4C542; 
+            text-decoration: none; border-radius: 25px; margin-top: 15px; 
+            font-family: 'Cinzel', serif; font-size: 11px; 
+            letter-spacing: 2px; font-weight: 700;
+            border: 1.5px solid #F4C542;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        form { width: 100%; }
+
+        input, textarea {
+            width: 100%; padding: 12px; margin-bottom: 12px;
+            border: 1.5px solid #F4C542;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 6px; font-family: 'Montserrat', sans-serif;
+            font-size: 12px; outline: none; color: #F3E9D2; font-weight: 600;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        input::placeholder, textarea::placeholder { color: rgba(243, 233, 210, 0.7); }
+
+        button.btn-submit {
+            width: 100%; padding: 12px;
+            background: rgba(0, 0, 0, 0.75); color: #F4C542; 
+            border: 1.5px solid #F4C542; border-radius: 6px;
+            font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; cursor: pointer;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+    <div class="card-wrapper" id="particle-box">
+        
+        <!-- TAP TO OPEN OVERLAY -->
+        <div class="video-overlay" id="videoOverlay" onclick="handleCardOpen()">
+            <video id="envelopeVid" class="envelope-video" playsinline muted preload="auto">
+                <source src="envelope.mp4#t=0.001" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- FIXED BACKGROUND LAYER -->
+        <div class="bg-fixed-container">
+            <!-- First Background Video/Image -->
+            <video id="bg-top" class="bg-media" autoplay loop muted playsinline preload="auto">
+                <source src="bg.mp4" type="video/mp4">
+            </video>
+            <!-- Second Background Video/Image -->
+            <video id="bg-bottom" class="bg-media" autoplay loop muted playsinline preload="auto">
+                <source src="bg2.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- SCROLLABLE CONTENT (background never moves) -->
+        <div class="content-scroll" id="content-scroll">
+        <div class="main-content">
+            
+            <div class="scroll-section" data-bg="top">
+                <p class="header-sub">IN THE NAME OF ALLAH, THE MOST GRACIOUS</p>
+                <h1>Ayaz & Abida</h1>
+                <p class="body-stylish" style="margin: 10px 0 15px;">
+                    Together with their families<br>request the pleasure of your company
+                </p>
+                
+                <div class="square-scratch-wrapper">
+                    <div class="scratch-secret-content">
+                        <p>✨ NIKAH CEREMONY ✨</p>
+                        <h2>07 DECEMBER 2026</h2>
+                    </div>
+                    <canvas id="scratch-canvas" width="220" height="90"></canvas>
+                </div>
+            </div>
+
+            <div class="scroll-section" data-bg="top">
+                <div class="section-heading">💍 The Nikah Ceremony</div>
+                <p class="highlight-text">Monday, December 07, 2026</p>
+                <p class="body-stylish" style="margin-top: 10px;">
+                    <span style="color: #F4C542; font-weight: 700;">VENUE</span><br>
+                    Titanic Banquet Hall
+                </p>
+                <a href="https://maps.app.goo.gl/KWu3cgBN6N49fTcb8" target="_blank" class="map-btn">LOCATION MAP</a>
+            </div>
+
+            <div class="scroll-section" data-bg="bottom">
+                <div class="section-heading">✨ The Grand Walima</div>
+                <p class="highlight-text">Wednesday, December 09, 2026</p>
+                <p class="body-stylish" style="margin-top: 10px;">
+                    <span style="color: #F4C542; font-weight: 700;">VENUE</span><br>
+                    Jannat Banquet Hall
+                </p>
+                <a href="https://maps.app.goo.gl/9UB9KgKGyMZNvLnX8" target="_blank" class="map-btn">LOCATION MAP</a>
+            </div>
+
+            <div class="scroll-section" data-bg="bottom">
+                <div class="section-heading">COUNTDOWN TO FOREVER</div>
+                <div class="timer-grid">
+                    <div class="timer-unit"><span id="days">00</span><p>DAYS</p></div>
+                    <div class="timer-unit"><span id="hours">00</span><p>HOURS</p></div>
+                    <div class="timer-unit"><span id="mins">00</span><p>MINS</p></div>
+                    <div class="timer-unit"><span id="secs">00</span><p>SECS</p></div>
+                </div>
+            </div>
+
+            <div class="scroll-section" data-bg="bottom">
+                <div class="section-heading">SEND YOUR BLESSINGS</div>
+                <form onsubmit="event.preventDefault(); alert('Thank you for your blessings!');">
+                    <input type="text" placeholder="Your Full Name" required>
+                    <textarea rows="3" placeholder="Write your warm wishes..."></textarea>
+                    <button type="submit" class="btn-submit">SEND BLESSINGS</button>
+                </form>
+            </div>
+
+        </div>
+        </div>
+    </div>
+
+    <script>
+        const videoOverlay = document.getElementById('videoOverlay');
+        const cardWrapper = document.getElementById('particle-box');
+        const contentScroll = document.getElementById('content-scroll');
+        const bgMusic = document.getElementById('bg-music');
+        const envelopeVid = document.getElementById('envelopeVid');
+        const bgTop = document.getElementById('bg-top');
+        const bgBottom = document.getElementById('bg-bottom');
+        let hasOpened = false;
+
+        function handleCardOpen() {
+            if (hasOpened) return;
+            hasOpened = true;
+
+            if (envelopeVid) envelopeVid.play().catch(err => console.log('envelope play failed:', err));
+            if (bgMusic) bgMusic.play().catch(err => console.log('music play failed:', err));
+
+            // Play bg-top immediately
+            if (bgTop) bgTop.play().catch(err => console.log('bg-top play failed:', err));
+
+            // bg-bottom: force load + play, and log any real error (404, decode error, etc.)
+            if (bgBottom) {
+                bgBottom.load(); // ensures browser actually starts fetching bg2.mp4
+                bgBottom.play().catch(err => console.log('bg-bottom play failed:', err));
+                bgBottom.addEventListener('error', () => {
+                    console.error('bg2.mp4 FAILED TO LOAD. Check the file path/name on GitHub.');
+                });
+            }
+
+            setTimeout(() => {
+                videoOverlay.classList.add('fade-out');
+                contentScroll.classList.add('unlocked');
+            }, 1200);
+        }
+
+        // SCROLL LISTENER — single stable boundary point, no flicker.
+        // Find the first section marked data-bg="bottom" (the Walima section)
+        // and switch backgrounds once the scroll passes its midpoint.
+        const firstBottomSection = document.querySelector('.scroll-section[data-bg="bottom"]');
+        let isShowingBottom = false;
+
+        function updateBackground() {
+            if (!firstBottomSection) return;
+            const rect = firstBottomSection.getBoundingClientRect();
+            const wrapperRect = contentScroll.getBoundingClientRect();
+            // Position of the section's top relative to the scroll wrapper's viewport
+            const relativeTop = rect.top - wrapperRect.top;
+            const triggerPoint = wrapperRect.height * 0.4; // switch when section top reaches 40% down the viewport
+
+            const shouldShowBottom = relativeTop <= triggerPoint;
+
+            if (shouldShowBottom !== isShowingBottom) {
+                isShowingBottom = shouldShowBottom;
+                if (shouldShowBottom) {
+                    bgTop.style.opacity = '0';
+                    bgBottom.style.opacity = '1';
+                    bgBottom.play().catch(err => console.log('bg-bottom play failed on scroll:', err));
+                } else {
+                    bgTop.style.opacity = '1';
+                    bgBottom.style.opacity = '0';
+                }
+            }
+        }
+
+        contentScroll.addEventListener('scroll', updateBackground);
+        // Run once in case the page loads already scrolled
+        updateBackground();
+
+        // Floating Gold Sparkles
+        for (let i = 0; i < 15; i++) {
+            let spark = document.createElement('div');
+            spark.className = 'sparkle';
+            spark.style.left = Math.random() * 100 + '%';
+            spark.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            spark.style.animationDelay = Math.random() * 3 + 's';
+            cardWrapper.appendChild(spark);
+        }
+
+        // Scratch Card Logic
+        const canvas = document.getElementById('scratch-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            let goldGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            goldGrad.addColorStop(0, '#f9e698');
+            goldGrad.addColorStop(0.5, '#d4af37');
+            goldGrad.addColorStop(1, '#aa7c11');
+            
+            ctx.fillStyle = goldGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = '700 11px Cinzel';
+            ctx.fillStyle = '#110b00';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨ SCRATCH HERE ✨', canvas.width / 2, canvas.height / 2 + 3);
+
+            let scratching = false;
+
+            function getTouchPos(canvasDom, touchEvent) {
+                const rect = canvasDom.getBoundingClientRect();
+                return {
+                    x: (touchEvent.touches ? touchEvent.touches[0].clientX : touchEvent.clientX) - rect.left,
+                    y: (touchEvent.touches ? touchEvent.touches[0].clientY : touchEvent.clientY) - rect.top
+                };
+            }
+
+            function scratch(e) {
+                if (!scratching) return;
+                const pos = getTouchPos(canvas, e);
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 16, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            canvas.addEventListener('mousedown', (e) => { scratching = true; scratch(e); });
+            canvas.addEventListener('mouseup', () => scratching = false);
+            canvas.addEventListener('mousemove', scratch);
+            
+            canvas.addEventListener('touchstart', (e) => { scratching = true; scratch(e); }, {passive: true});
+            canvas.addEventListener('touchend', () => scratching = false);
+            canvas.addEventListener('touchmove', scratch, {passive: true});
+        }
+
+        // Countdown Logic
+        const weddingDate = new Date("Dec 7, 2026 10:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+            if (diff > 0) {
+                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
