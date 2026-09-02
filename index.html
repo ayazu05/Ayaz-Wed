@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayaz & Abida Wedding Invitation</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Clean & High Clarity Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,7 +14,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            background: #100804;
+            background: #0d0603;
             font-family: 'Montserrat', sans-serif;
             overflow: hidden;
             display: flex;
@@ -27,26 +28,26 @@
             height: 100vh;
             max-height: 900px;
             position: relative;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.9);
             overflow: hidden;
             border-radius: 12px;
-            border: 1px solid rgba(245, 208, 97, 0.4);
+            border: 1.5px solid #FFD700;
         }
 
         .card-wrapper.unlocked {
             overflow-y: auto !important;
         }
 
-        .card-wrapper::-webkit-scrollbar { width: 3px; }
-        .card-wrapper::-webkit-scrollbar-thumb { background: #F5D061; border-radius: 10px; }
+        .card-wrapper::-webkit-scrollbar { width: 4px; }
+        .card-wrapper::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
 
-        /* Stable Dual Video Overlay Stack */
+        /* Solid Video Background Layer Stack */
         .bg-layer {
             position: fixed;
             top: 0; left: 0;
             width: 100%; max-width: 420px;
             height: 100vh; max-height: 900px;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.8s ease-in-out;
             pointer-events: none;
             overflow: hidden;
         }
@@ -57,15 +58,8 @@
             object-fit: cover;
         }
 
-        #bg-top { 
-            opacity: 1; 
-            z-index: 2; 
-        }
-
-        #bg-bottom { 
-            opacity: 0; 
-            z-index: 1; 
-        }
+        #bg-top { opacity: 1; z-index: 2; }
+        #bg-bottom { opacity: 0; z-index: 1; }
 
         /* Direct Tap Video Overlay */
         .video-overlay {
@@ -95,7 +89,7 @@
         /* Ambient Gold Floating Particles */
         .sparkle {
             position: absolute; width: 3px; height: 3px;
-            background: #F5D061; border-radius: 50%;
+            background: #FFD700; border-radius: 50%;
             pointer-events: none; opacity: 0;
             animation: floatUp 6s infinite linear;
             z-index: 4;
@@ -107,49 +101,55 @@
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* Clean Luxury Typography */
+        /* Content Styling & Font Fixes */
         .main-content {
             position: relative;
             z-index: 5;
-            padding: 70px 24px 40px;
+            padding: 60px 20px 40px;
             text-align: center;
         }
 
         .scroll-section {
-            padding: 30px 10px 40px;
-            margin-bottom: 25px;
-            background: transparent;
+            padding: 30px 15px;
+            margin-bottom: 30px;
+            background: rgba(13, 6, 3, 0.45);
+            border-radius: 12px;
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
-        .hero-section { padding-top: 10px; }
+        .hero-section { padding-top: 20px; }
 
         .header-sub {
             font-family: 'Cinzel', serif;
             font-size: 11px;
-            letter-spacing: 3px;
+            letter-spacing: 2.5px;
             color: #FFFFFF;
-            font-weight: 500;
+            font-weight: 700;
             margin-bottom: 12px;
-            line-height: 1.6;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
+        /* Fixed Elegant Font for 'Ayaz & Abida' */
         h1 {
-            font-family: 'Great Vibes', cursive;
-            font-size: 62px;
-            color: #F5D061;
-            margin-top: 2px;
-            line-height: 1.1;
+            font-family: 'Alex Brush', cursive;
+            font-size: 54px;
+            color: #FFD700;
+            margin: 5px 0;
+            line-height: 1.2;
             font-weight: 400;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
         }
 
         .section-heading {
             font-family: 'Cinzel', serif;
             font-size: 16px;
-            color: #F5D061;
-            letter-spacing: 3px;
+            color: #FFD700;
+            letter-spacing: 2px;
             margin-bottom: 14px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .body-stylish {
@@ -158,15 +158,16 @@
             color: #FFFFFF;
             letter-spacing: 1px;
             line-height: 1.8;
-            font-weight: 400;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .highlight-text {
-            color: #F5D061;
+            color: #FFD700;
             font-family: 'Cinzel', serif;
             font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
         }
 
         /* Square Gold Scratch Card */
@@ -174,13 +175,12 @@
             position: relative;
             width: 220px;
             height: 90px;
-            margin: 24px auto 10px;
+            margin: 20px auto 10px;
             border-radius: 8px;
-            border: 1.5px solid #F5D061;
+            border: 1.5px solid #FFD700;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            background: rgba(20, 10, 5, 0.7);
         }
 
         .scratch-secret-content {
@@ -196,19 +196,19 @@
 
         .scratch-secret-content p {
             font-family: 'Cinzel', serif;
-            font-size: 9px;
+            font-size: 10px;
             letter-spacing: 2px;
             color: #FFFFFF;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .scratch-secret-content h2 {
             font-family: 'Cinzel', serif;
             font-size: 14px;
-            color: #F5D061;
+            color: #FFD700;
             margin-top: 4px;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
         }
 
         #scratch-canvas {
@@ -218,79 +218,78 @@
             z-index: 2;
         }
 
-        /* Minimal Countdown Timer */
+        /* Countdown Timer */
         .timer-grid {
             display: grid; 
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px; 
-            margin-top: 20px;
+            gap: 8px; 
+            margin-top: 15px;
         }
 
         .timer-unit {
-            background: rgba(20, 10, 5, 0.4);
+            background: rgba(13, 6, 3, 0.7);
             padding: 10px 2px;
-            border-radius: 8px;
-            border: 1px solid rgba(245, 208, 97, 0.5);
-            backdrop-filter: blur(4px);
+            border-radius: 6px;
+            border: 1px solid #FFD700;
         }
 
         .timer-unit span { 
             font-size: 18px; 
-            font-weight: 600; 
-            color: #F5D061; 
+            font-weight: 700; 
+            color: #FFD700; 
             font-family: 'Cinzel', serif; 
         }
         
         .timer-unit p { 
             font-size: 8px; 
             color: #FFFFFF; 
-            font-weight: 500; 
+            font-weight: 600; 
             letter-spacing: 1px; 
             margin-top: 2px;
         }
 
         .map-btn {
             display: inline-block; 
-            width: 80%; 
+            width: 85%; 
             padding: 11px;
-            background: rgba(245, 208, 97, 0.1);
-            color: #F5D061; 
+            background: rgba(13, 6, 3, 0.8);
+            color: #FFD700; 
             text-decoration: none; 
             border-radius: 25px;
-            margin-top: 18px; 
+            margin-top: 15px; 
             font-family: 'Cinzel', serif;
             font-size: 11px; 
             letter-spacing: 2px; 
-            font-weight: 600;
-            border: 1px solid #F5D061;
-            transition: all 0.3s;
+            font-weight: 700;
+            border: 1.5px solid #FFD700;
         }
 
         input, textarea {
             width: 100%; 
             padding: 12px; 
             margin-bottom: 12px;
-            border: 1px solid rgba(245, 208, 97, 0.4);
-            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid #FFD700;
+            background: rgba(13, 6, 3, 0.8);
             border-radius: 6px; 
             font-family: 'Montserrat', sans-serif;
             font-size: 12px; 
             outline: none; 
             color: #FFFFFF;
+            font-weight: 600;
         }
 
-        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.6); }
+        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.7); }
 
         button.btn-submit {
             width: 100%; 
             padding: 12px;
-            background: transparent;
-            color: #F5D061; 
-            border: 1px solid #F5D061; 
+            background: rgba(13, 6, 3, 0.8);
+            color: #FFD700; 
+            border: 1.5px solid #FFD700; 
             border-radius: 6px;
             font-family: 'Cinzel', serif; 
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 2px; 
             cursor: pointer;
         }
@@ -309,7 +308,7 @@
             </video>
         </div>
 
-        <!-- Stable Dynamic Video Background Stack -->
+        <!-- Dynamic Dual Video Background Stack -->
         <div class="bg-layer" id="bg-top">
             <video id="bgVid1" autoplay loop muted playsinline preload="auto">
                 <source src="bg.mp4" type="video/mp4">
@@ -328,7 +327,7 @@
             <div class="scroll-section hero-section" data-bg="top">
                 <p class="header-sub">IN THE NAME OF ALLAH, THE MOST GRACIOUS</p>
                 <h1>Ayaz & Abida</h1>
-                <p class="body-stylish" style="margin: 14px 0 18px;">
+                <p class="body-stylish" style="margin: 10px 0 15px;">
                     Together with their families<br>request the pleasure of your company
                 </p>
                 
@@ -346,8 +345,8 @@
             <div class="scroll-section" data-bg="top">
                 <div class="section-heading">💍 The Nikah Ceremony</div>
                 <p class="highlight-text">Monday, December 07, 2026</p>
-                <p class="body-stylish" style="margin-top: 14px;">
-                    <span style="color: #F5D061; font-weight: 600;">VENUE</span><br>
+                <p class="body-stylish" style="margin-top: 10px;">
+                    <span style="color: #FFD700; font-weight: 700;">VENUE</span><br>
                     Titanic Banquet Hall
                 </p>
                 <a href="https://maps.app.goo.gl/KWu3cgBN6N49fTcb8" target="_blank" class="map-btn">LOCATION MAP</a>
@@ -357,8 +356,8 @@
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">✨ The Grand Walima</div>
                 <p class="highlight-text">Wednesday, December 09, 2026</p>
-                <p class="body-stylish" style="margin-top: 14px;">
-                    <span style="color: #F5D061; font-weight: 600;">VENUE</span><br>
+                <p class="body-stylish" style="margin-top: 10px;">
+                    <span style="color: #FFD700; font-weight: 700;">VENUE</span><br>
                     Jannat Banquet Hall
                 </p>
                 <a href="https://maps.app.goo.gl/9UB9KgKGyMZNvLnX8" target="_blank" class="map-btn">LOCATION MAP</a>
@@ -393,16 +392,18 @@
         const cardWrapper = document.getElementById('particle-box');
         const bgMusic = document.getElementById('bg-music');
         const envelopeVid = document.getElementById('envelopeVid');
+        const bgVid1 = document.getElementById('bgVid1');
+        const bgVid2 = document.getElementById('bgVid2');
         let hasOpened = false;
 
         function handleCardOpen() {
             if (hasOpened) return;
             hasOpened = true;
 
-            if (envelopeVid) {
-                envelopeVid.play().catch(() => {});
-            }
+            if (envelopeVid) envelopeVid.play().catch(() => {});
             if (bgMusic) bgMusic.play().catch(() => {});
+            if (bgVid1) bgVid1.play().catch(() => {});
+            if (bgVid2) bgVid2.play().catch(() => {});
 
             setTimeout(() => {
                 videoOverlay.classList.add('fade-out');
@@ -421,18 +422,10 @@
             box.appendChild(spark);
         }
 
-        // Reliable Video Switch Engine
+        // Reliable Video Switcher on Scroll
         const bgTop = document.getElementById('bg-top');
         const bgBottom = document.getElementById('bg-bottom');
-        const bgVid1 = document.getElementById('bgVid1');
-        const bgVid2 = document.getElementById('bgVid2');
         const sections = document.querySelectorAll('.scroll-section');
-
-        // Play videos explicitly on page ready
-        window.addEventListener('load', () => {
-            if(bgVid1) bgVid1.play().catch(() => {});
-            if(bgVid2) bgVid2.play().catch(() => {});
-        });
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -449,7 +442,7 @@
                     }
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.15 });
 
         sections.forEach(sec => observer.observe(sec));
 
@@ -466,7 +459,7 @@
             ctx.fillStyle = goldGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            ctx.font = '600 10px Cinzel';
+            ctx.font = '700 11px Cinzel';
             ctx.fillStyle = '#110b00';
             ctx.textAlign = 'center';
             ctx.fillText('✨ SCRATCH HERE ✨', canvas.width / 2, canvas.height / 2 + 3);
