@@ -29,6 +29,7 @@
             position: relative;
             box-shadow: 0 15px 50px rgba(0,0,0,0.9);
             overflow: hidden;
+            background: #0d0603;
         }
 
         .card-wrapper.unlocked {
@@ -38,38 +39,28 @@
         .card-wrapper::-webkit-scrollbar { width: 3px; }
         .card-wrapper::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
 
-        /* STRICT BACKGROUND LOCK LAYER (Z-INDEX 1) */
+        /* FIXED BACKGROUND CONTAINER */
         .bg-fixed-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 1;
             pointer-events: none;
-            overflow: hidden;
+            background: #0d0603;
         }
 
-        .bg-layer {
+        .bg-media {
             position: absolute;
-            top: 0; 
-            left: 0;
-            width: 100%;
-            height: 100%;
-            transition: opacity 0.8s ease-in-out;
-        }
-
-        .bg-layer video {
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
-            object-position: center;
+            transition: opacity 0.6s ease;
         }
 
         #bg-top { opacity: 1; z-index: 2; }
         #bg-bottom { opacity: 0; z-index: 1; }
 
-        /* INITIAL OVERLAY SCREEN */
+        /* OVERLAY ENVELOPE SCREEN */
         .video-overlay {
             position: absolute;
             top: 0; left: 0;
@@ -88,5 +79,395 @@
         }
 
         .envelope-video {
-            width: 100%;
-            height
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+        }
+
+        /* SPARKLES */
+        .sparkle {
+            position: absolute; width: 3px; height: 3px;
+            background: #FFD700; border-radius: 50%;
+            pointer-events: none; opacity: 0;
+            animation: floatUp 6s infinite linear;
+            z-index: 5;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* FOREGROUND CONTENT */
+        .main-content {
+            position: relative;
+            z-index: 10;
+            padding: 20px 15px 40px;
+            text-align: center;
+        }
+
+        .scroll-section {
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 5px rgba(0,0,0,1);
+        }
+
+        h1 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 60px;
+            color: #FFD700;
+            margin: 5px 0 10px 0;
+            line-height: 1.1;
+            font-weight: 400;
+            text-shadow: 0 0 12px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
+        }
+
+        .section-heading {
+            font-family: 'Cinzel', serif;
+            font-size: 17px;
+            color: #FFD700;
+            letter-spacing: 2.5px;
+            margin-bottom: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
+        }
+
+        .body-stylish {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+            line-height: 1.8;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
+        }
+
+        .highlight-text {
+            color: #FFD700;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
+        }
+
+        .square-scratch-wrapper {
+            position: relative;
+            width: 220px; height: 90px;
+            margin: 20px auto 10px;
+            border-radius: 8px;
+            border: 1.5px solid #FFD700;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0,0,0,0.9);
+            background: rgba(13, 6, 3, 0.75);
+        }
+
+        .scratch-secret-content {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .scratch-secret-content p {
+            font-family: 'Cinzel', serif;
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            font-weight: 700;
+        }
+
+        .scratch-secret-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            color: #FFD700;
+            margin-top: 4px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        #scratch-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .timer-grid {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px; margin-top: 15px; width: 100%;
+        }
+
+        .timer-unit {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 2px;
+            border-radius: 6px;
+            border: 1.5px solid #FFD700;
+            box-shadow: 0 0 12px rgba(0,0,0,0.8);
+        }
+
+        .timer-unit span { 
+            font-size: 18px; font-weight: 700; 
+            color: #FFD700; font-family: 'Cinzel', serif; 
+            text-shadow: 0 0 8px rgba(0,0,0,1);
+        }
+        
+        .timer-unit p { 
+            font-size: 8px; color: #FFFFFF; 
+            font-weight: 700; letter-spacing: 1px; margin-top: 2px;
+        }
+
+        .map-btn {
+            display: inline-block; width: 85%; padding: 11px;
+            background: rgba(0, 0, 0, 0.7); color: #FFD700; 
+            text-decoration: none; border-radius: 25px; margin-top: 15px; 
+            font-family: 'Cinzel', serif; font-size: 11px; 
+            letter-spacing: 2px; font-weight: 700;
+            border: 1.5px solid #FFD700;
+            text-shadow: 0 0 8px rgba(0,0,0,1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+        }
+
+        form { width: 100%; }
+
+        input, textarea {
+            width: 100%; padding: 12px; margin-bottom: 12px;
+            border: 1.5px solid #FFD700;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 6px; font-family: 'Montserrat', sans-serif;
+            font-size: 12px; outline: none; color: #FFFFFF; font-weight: 600;
+            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.85); }
+
+        button.btn-submit {
+            width: 100%; padding: 12px;
+            background: rgba(0, 0, 0, 0.75); color: #FFD700; 
+            border: 1.5px solid #FFD700; border-radius: 6px;
+            font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700;
+            letter-spacing: 2px; cursor: pointer;
+            text-shadow: 0 0 8px rgba(0,0,0,1);
+            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+    <div class="card-wrapper" id="particle-box">
+        
+        <div class="video-overlay" id="videoOverlay" onclick="handleCardOpen()">
+            <video id="envelopeVid" class="envelope-video" playsinline muted preload="auto">
+                <source src="envelope.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="bg-fixed-container">
+            <video id="bg-top" class="bg-media" autoplay loop muted playsinline preload="auto">
+                <source src="bg.mp4" type="video/mp4">
+            </video>
+            <video id="bg-bottom" class="bg-media" autoplay loop muted playsinline preload="auto">
+                <source src="bg2.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="main-content">
+            
+            <div class="scroll-section">
+                <p class="header-sub">IN THE NAME OF ALLAH, THE MOST GRACIOUS</p>
+                <h1>Ayaz & Abida</h1>
+                <p class="body-stylish" style="margin: 10px 0 15px;">
+                    Together with their families<br>request the pleasure of your company
+                </p>
+                
+                <div class="square-scratch-wrapper">
+                    <div class="scratch-secret-content">
+                        <p>✨ NIKAH CEREMONY ✨</p>
+                        <h2>07 DECEMBER 2026</h2>
+                    </div>
+                    <canvas id="scratch-canvas" width="220" height="90"></canvas>
+                </div>
+            </div>
+
+            <div class="scroll-section">
+                <div class="section-heading">💍 The Nikah Ceremony</div>
+                <p class="highlight-text">Monday, December 07, 2026</p>
+                <p class="body-stylish" style="margin-top: 10px;">
+                    <span style="color: #FFD700; font-weight: 700;">VENUE</span><br>
+                    Titanic Banquet Hall
+                </p>
+                <a href="https://maps.app.goo.gl/KWu3cgBN6N49fTcb8" target="_blank" class="map-btn">LOCATION MAP</a>
+            </div>
+
+            <div class="scroll-section">
+                <div class="section-heading">✨ The Grand Walima</div>
+                <p class="highlight-text">Wednesday, December 09, 2026</p>
+                <p class="body-stylish" style="margin-top: 10px;">
+                    <span style="color: #FFD700; font-weight: 700;">VENUE</span><br>
+                    Jannat Banquet Hall
+                </p>
+                <a href="https://maps.app.goo.gl/9UB9KgKGyMZNvLnX8" target="_blank" class="map-btn">LOCATION MAP</a>
+            </div>
+
+            <div class="scroll-section">
+                <div class="section-heading">COUNTDOWN TO FOREVER</div>
+                <div class="timer-grid">
+                    <div class="timer-unit"><span id="days">00</span><p>DAYS</p></div>
+                    <div class="timer-unit"><span id="hours">00</span><p>HOURS</p></div>
+                    <div class="timer-unit"><span id="mins">00</span><p>MINS</p></div>
+                    <div class="timer-unit"><span id="secs">00</span><p>SECS</p></div>
+                </div>
+            </div>
+
+            <div class="scroll-section">
+                <div class="section-heading">SEND YOUR BLESSINGS</div>
+                <form onsubmit="event.preventDefault(); alert('Thank you for your blessings!');">
+                    <input type="text" placeholder="Your Full Name" required>
+                    <textarea rows="3" placeholder="Write your warm wishes..."></textarea>
+                    <button type="submit" class="btn-submit">SEND BLESSINGS</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const videoOverlay = document.getElementById('videoOverlay');
+        const cardWrapper = document.getElementById('particle-box');
+        const bgMusic = document.getElementById('bg-music');
+        const envelopeVid = document.getElementById('envelopeVid');
+        const bgTop = document.getElementById('bg-top');
+        const bgBottom = document.getElementById('bg-bottom');
+        let hasOpened = false;
+
+        // Force Play Background Videos across browsers
+        function playAllVideos() {
+            if (bgTop) { bgTop.muted = true; bgTop.play().catch(() => {}); }
+            if (bgBottom) { bgBottom.muted = true; bgBottom.play().catch(() => {}); }
+        }
+
+        window.addEventListener('DOMContentLoaded', playAllVideos);
+        window.addEventListener('load', playAllVideos);
+
+        function handleCardOpen() {
+            if (hasOpened) return;
+            hasOpened = true;
+
+            playAllVideos();
+            if (envelopeVid) { envelopeVid.muted = true; envelopeVid.play().catch(() => {}); }
+            if (bgMusic) bgMusic.play().catch(() => {});
+
+            setTimeout(() => {
+                videoOverlay.classList.add('fade-out');
+                cardWrapper.classList.add('unlocked');
+            }, 1000);
+        }
+
+        // SCROLL LISTENER FOR SWITCHING BACKGROUNDS
+        cardWrapper.addEventListener('scroll', () => {
+            const scrollTop = cardWrapper.scrollTop;
+            const scrollHeight = cardWrapper.scrollHeight - cardWrapper.clientHeight;
+            const scrollPercent = scrollTop / scrollHeight;
+
+            if (scrollPercent > 0.35) {
+                bgTop.style.opacity = '0';
+                bgBottom.style.opacity = '1';
+            } else {
+                bgTop.style.opacity = '1';
+                bgBottom.style.opacity = '0';
+            }
+        });
+
+        // Floating Gold Sparkles
+        for (let i = 0; i < 15; i++) {
+            let spark = document.createElement('div');
+            spark.className = 'sparkle';
+            spark.style.left = Math.random() * 100 + '%';
+            spark.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            spark.style.animationDelay = Math.random() * 3 + 's';
+            cardWrapper.appendChild(spark);
+        }
+
+        // Scratch Card Logic
+        const canvas = document.getElementById('scratch-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            let goldGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            goldGrad.addColorStop(0, '#f9e698');
+            goldGrad.addColorStop(0.5, '#d4af37');
+            goldGrad.addColorStop(1, '#aa7c11');
+            
+            ctx.fillStyle = goldGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = '700 11px Cinzel';
+            ctx.fillStyle = '#110b00';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨ SCRATCH HERE ✨', canvas.width / 2, canvas.height / 2 + 3);
+
+            let scratching = false;
+
+            function getTouchPos(canvasDom, touchEvent) {
+                const rect = canvasDom.getBoundingClientRect();
+                return {
+                    x: (touchEvent.touches ? touchEvent.touches[0].clientX : touchEvent.clientX) - rect.left,
+                    y: (touchEvent.touches ? touchEvent.touches[0].clientY : touchEvent.clientY) - rect.top
+                };
+            }
+
+            function scratch(e) {
+                if (!scratching) return;
+                const pos = getTouchPos(canvas, e);
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 16, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            canvas.addEventListener('mousedown', (e) => { scratching = true; scratch(e); });
+            canvas.addEventListener('mouseup', () => scratching = false);
+            canvas.addEventListener('mousemove', scratch);
+            
+            canvas.addEventListener('touchstart', (e) => { scratching = true; scratch(e); }, {passive: true});
+            canvas.addEventListener('touchend', () => scratching = false);
+            canvas.addEventListener('touchmove', scratch, {passive: true});
+        }
+
+        // Countdown Logic
+        const weddingDate = new Date("Dec 7, 2026 10:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+            if (diff > 0) {
+                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
