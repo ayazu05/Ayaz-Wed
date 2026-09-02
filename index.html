@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayaz & Abida Wedding Invitation</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #100804;
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-wrapper {
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            max-height: 900px;
+            position: relative;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+            overflow: hidden;
+            border-radius: 12px;
+            border: 1px solid rgba(245, 208, 97, 0.4);
+        }
+
+        .card-wrapper.unlocked {
+            overflow-y: auto !important;
+        }
+
+        .card-wrapper::-webkit-scrollbar { width: 3px; }
+        .card-wrapper::-webkit-scrollbar-thumb { background: #F5D061; border-radius: 10px; }
+
+        /* Stable Dual Video Overlay Stack */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; max-width: 420px;
+            height: 100vh; max-height: 900px;
+            transition: opacity 1s ease-in-out;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-layer video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #bg-top { 
+            opacity: 1; 
+            z-index: 2; 
+        }
+
+        #bg-bottom { 
+            opacity: 0; 
+            z-index: 1; 
+        }
+
+        /* Direct Tap Video Overlay */
+        .video-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1000;
+            background: #0d0603;
+            cursor: pointer;
+            opacity: 1;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .video-overlay.fade-out {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
+        .envelope-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Ambient Gold Floating Particles */
+        .sparkle {
+            position: absolute; width: 3px; height: 3px;
+            background: #F5D061; border-radius: 50%;
+            pointer-events: none; opacity: 0;
+            animation: floatUp 6s infinite linear;
+            z-index: 4;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+        }
+
+        /* Clean Luxury Typography */
+        .main-content {
+            position: relative;
+            z-index: 5;
+            padding: 70px 24px 40px;
+            text-align: center;
+        }
+
+        .scroll-section {
+            padding: 30px 10px 40px;
+            margin-bottom: 25px;
+            background: transparent;
+        }
+
+        .hero-section { padding-top: 10px; }
+
+        .header-sub {
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #FFFFFF;
+            font-weight: 500;
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 62px;
+            color: #F5D061;
+            margin-top: 2px;
+            line-height: 1.1;
+            font-weight: 400;
+        }
+
+        .section-heading {
+            font-family: 'Cinzel', serif;
+            font-size: 16px;
+            color: #F5D061;
+            letter-spacing: 3px;
+            margin-bottom: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .body-stylish {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            color: #FFFFFF;
+            letter-spacing: 1px;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .highlight-text {
+            color: #F5D061;
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        /* Square Gold Scratch Card */
+        .square-scratch-wrapper {
+            position: relative;
+            width: 220px;
+            height: 90px;
+            margin: 24px auto 10px;
+            border-radius: 8px;
+            border: 1.5px solid #F5D061;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+        }
+
+        .scratch-secret-content {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .scratch-secret-content p {
+            font-family: 'Cinzel', serif;
+            font-size: 9px;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .scratch-secret-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            color: #F5D061;
+            margin-top: 4px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        #scratch-canvas {
+            position: absolute;
+            top: 0; left: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        /* Minimal Countdown Timer */
+        .timer-grid {
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px; 
+            margin-top: 20px;
+        }
+
+        .timer-unit {
+            background: rgba(20, 10, 5, 0.4);
+            padding: 10px 2px;
+            border-radius: 8px;
+            border: 1px solid rgba(245, 208, 97, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .timer-unit span { 
+            font-size: 18px; 
+            font-weight: 600; 
+            color: #F5D061; 
+            font-family: 'Cinzel', serif; 
+        }
+        
+        .timer-unit p { 
+            font-size: 8px; 
+            color: #FFFFFF; 
+            font-weight: 500; 
+            letter-spacing: 1px; 
+            margin-top: 2px;
+        }
+
+        .map-btn {
+            display: inline-block; 
+            width: 80%; 
+            padding: 11px;
+            background: rgba(245, 208, 97, 0.1);
+            color: #F5D061; 
+            text-decoration: none; 
+            border-radius: 25px;
+            margin-top: 18px; 
+            font-family: 'Cinzel', serif;
+            font-size: 11px; 
+            letter-spacing: 2px; 
+            font-weight: 600;
+            border: 1px solid #F5D061;
+            transition: all 0.3s;
+        }
+
+        input, textarea {
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 12px;
+            border: 1px solid rgba(245, 208, 97, 0.4);
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px; 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px; 
+            outline: none; 
+            color: #FFFFFF;
+        }
+
+        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.6); }
+
+        button.btn-submit {
+            width: 100%; 
+            padding: 12px;
+            background: transparent;
+            color: #F5D061; 
+            border: 1px solid #F5D061; 
+            border-radius: 6px;
+            font-family: 'Cinzel', serif; 
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px; 
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+
+    <div class="card-wrapper" id="particle-box">
+        
+        <!-- Video Screen Overlay -->
+        <div class="video-overlay" id="videoOverlay" onclick="handleCardOpen()">
+            <video id="envelopeVid" class="envelope-video" playsinline muted preload="auto">
+                <source src="envelope.mp4#t=0.001" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Stable Dynamic Video Background Stack -->
+        <div class="bg-layer" id="bg-top">
+            <video id="bgVid1" autoplay loop muted playsinline preload="auto">
+                <source src="bg.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="bg-layer" id="bg-bottom">
+            <video id="bgVid2" autoplay loop muted playsinline preload="auto">
+                <source src="bg2.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            
+            <!-- PAGE 1: HERO -->
+            <div class="scroll-section hero-section" data-bg="top">
+                <p class="header-sub">IN THE NAME OF ALLAH, THE MOST GRACIOUS</p>
+                <h1>Ayaz & Abida</h1>
+                <p class="body-stylish" style="margin: 14px 0 18px;">
+                    Together with their families<br>request the pleasure of your company
+                </p>
+                
+                <!-- Square Gold Scratch Card -->
+                <div class="square-scratch-wrapper">
+                    <div class="scratch-secret-content">
+                        <p>✨ NIKAH CEREMONY ✨</p>
+                        <h2>07 DECEMBER 2026</h2>
+                    </div>
+                    <canvas id="scratch-canvas" width="220" height="90"></canvas>
+                </div>
+            </div>
+
+            <!-- PAGE 2: NIKAH CEREMONY -->
+            <div class="scroll-section" data-bg="top">
+                <div class="section-heading">💍 The Nikah Ceremony</div>
+                <p class="highlight-text">Monday, December 07, 2026</p>
+                <p class="body-stylish" style="margin-top: 14px;">
+                    <span style="color: #F5D061; font-weight: 600;">VENUE</span><br>
+                    Titanic Banquet Hall
+                </p>
+                <a href="https://maps.app.goo.gl/KWu3cgBN6N49fTcb8" target="_blank" class="map-btn">LOCATION MAP</a>
+            </div>
+
+            <!-- PAGE 3: WALIMA CEREMONY -->
+            <div class="scroll-section" data-bg="bottom">
+                <div class="section-heading">✨ The Grand Walima</div>
+                <p class="highlight-text">Wednesday, December 09, 2026</p>
+                <p class="body-stylish" style="margin-top: 14px;">
+                    <span style="color: #F5D061; font-weight: 600;">VENUE</span><br>
+                    Jannat Banquet Hall
+                </p>
+                <a href="https://maps.app.goo.gl/9UB9KgKGyMZNvLnX8" target="_blank" class="map-btn">LOCATION MAP</a>
+            </div>
+
+            <!-- PAGE 4: COUNTDOWN TIMER -->
+            <div class="scroll-section" data-bg="bottom">
+                <div class="section-heading">COUNTDOWN TO FOREVER</div>
+                <div class="timer-grid">
+                    <div class="timer-unit"><span id="days">00</span><p>DAYS</p></div>
+                    <div class="timer-unit"><span id="hours">00</span><p>HOURS</p></div>
+                    <div class="timer-unit"><span id="mins">00</span><p>MINS</p></div>
+                    <div class="timer-unit"><span id="secs">00</span><p>SECS</p></div>
+                </div>
+            </div>
+
+            <!-- PAGE 5: RSVP -->
+            <div class="scroll-section" data-bg="bottom">
+                <div class="section-heading">SEND YOUR BLESSINGS</div>
+                <form onsubmit="event.preventDefault(); alert('Thank you for your blessings!');">
+                    <input type="text" placeholder="Your Full Name" required>
+                    <textarea rows="3" placeholder="Write your warm wishes..."></textarea>
+                    <button type="submit" class="btn-submit">SEND BLESSINGS</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const videoOverlay = document.getElementById('videoOverlay');
+        const cardWrapper = document.getElementById('particle-box');
+        const bgMusic = document.getElementById('bg-music');
+        const envelopeVid = document.getElementById('envelopeVid');
+        let hasOpened = false;
+
+        function handleCardOpen() {
+            if (hasOpened) return;
+            hasOpened = true;
+
+            if (envelopeVid) {
+                envelopeVid.play().catch(() => {});
+            }
+            if (bgMusic) bgMusic.play().catch(() => {});
+
+            setTimeout(() => {
+                videoOverlay.classList.add('fade-out');
+                cardWrapper.classList.add('unlocked');
+            }, 1200);
+        }
+
+        // Sparkles Particles
+        const box = document.getElementById('particle-box');
+        for (let i = 0; i < 15; i++) {
+            let spark = document.createElement('div');
+            spark.className = 'sparkle';
+            spark.style.left = Math.random() * 100 + '%';
+            spark.style.animationDuration = (Math.random() * 3 + 5) + 's';
+            spark.style.animationDelay = Math.random() * 3 + 's';
+            box.appendChild(spark);
+        }
+
+        // Reliable Video Switch Engine
+        const bgTop = document.getElementById('bg-top');
+        const bgBottom = document.getElementById('bg-bottom');
+        const bgVid1 = document.getElementById('bgVid1');
+        const bgVid2 = document.getElementById('bgVid2');
+        const sections = document.querySelectorAll('.scroll-section');
+
+        // Play videos explicitly on page ready
+        window.addEventListener('load', () => {
+            if(bgVid1) bgVid1.play().catch(() => {});
+            if(bgVid2) bgVid2.play().catch(() => {});
+        });
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const targetBg = entry.target.getAttribute('data-bg');
+                    if (targetBg === 'bottom') {
+                        bgTop.style.opacity = '0';
+                        bgBottom.style.opacity = '1';
+                        if(bgVid2) bgVid2.play().catch(() => {});
+                    } else {
+                        bgTop.style.opacity = '1';
+                        bgBottom.style.opacity = '0';
+                        if(bgVid1) bgVid1.play().catch(() => {});
+                    }
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(sec => observer.observe(sec));
+
+        // Scratch Card Logic
+        const canvas = document.getElementById('scratch-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            
+            let goldGrad = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            goldGrad.addColorStop(0, '#f9e698');
+            goldGrad.addColorStop(0.5, '#d4af37');
+            goldGrad.addColorStop(1, '#aa7c11');
+            
+            ctx.fillStyle = goldGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = '600 10px Cinzel';
+            ctx.fillStyle = '#110b00';
+            ctx.textAlign = 'center';
+            ctx.fillText('✨ SCRATCH HERE ✨', canvas.width / 2, canvas.height / 2 + 3);
+
+            let scratching = false;
+
+            function getTouchPos(canvasDom, touchEvent) {
+                const rect = canvasDom.getBoundingClientRect();
+                return {
+                    x: (touchEvent.touches ? touchEvent.touches[0].clientX : touchEvent.clientX) - rect.left,
+                    y: (touchEvent.touches ? touchEvent.touches[0].clientY : touchEvent.clientY) - rect.top
+                };
+            }
+
+            function scratch(e) {
+                if (!scratching) return;
+                const pos = getTouchPos(canvas, e);
+                ctx.globalCompositeOperation = 'destination-out';
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 16, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            canvas.addEventListener('mousedown', (e) => { scratching = true; scratch(e); });
+            canvas.addEventListener('mouseup', () => scratching = false);
+            canvas.addEventListener('mousemove', scratch);
+            
+            canvas.addEventListener('touchstart', (e) => { scratching = true; scratch(e); }, {passive: true});
+            canvas.addEventListener('touchend', () => scratching = false);
+            canvas.addEventListener('touchmove', scratch, {passive: true});
+        }
+
+        // Countdown Timer
+        const weddingDate = new Date("Dec 7, 2026 10:00:00").getTime();
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = weddingDate - now;
+            if (diff > 0) {
+                document.getElementById('days').innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+                document.getElementById('hours').innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                document.getElementById('mins').innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                document.getElementById('secs').innerText = Math.floor((diff % (1000 * 60)) / 1000);
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
