@@ -29,7 +29,6 @@
             position: relative;
             box-shadow: 0 15px 50px rgba(0,0,0,0.9);
             overflow: hidden;
-            border: none;
         }
 
         .card-wrapper.unlocked {
@@ -39,16 +38,24 @@
         .card-wrapper::-webkit-scrollbar { width: 3px; }
         .card-wrapper::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
 
-        /* Fixed Background Layer Stack */
+        /* STRICT BACKGROUND LOCK LAYER (Z-INDEX 1) */
+        .bg-fixed-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
         .bg-layer {
             position: absolute;
             top: 0; 
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
             transition: opacity 0.8s ease-in-out;
         }
 
@@ -62,7 +69,7 @@
         #bg-top { opacity: 1; z-index: 2; }
         #bg-bottom { opacity: 0; z-index: 1; }
 
-        /* Initial Tap Video Overlay */
+        /* INITIAL OVERLAY SCREEN */
         .video-overlay {
             position: absolute;
             top: 0; left: 0;
@@ -87,13 +94,13 @@
             display: block;
         }
 
-        /* Ambient Gold Floating Particles */
+        /* PARTICLES */
         .sparkle {
             position: absolute; width: 3px; height: 3px;
             background: #FFD700; border-radius: 50%;
             pointer-events: none; opacity: 0;
             animation: floatUp 6s infinite linear;
-            z-index: 4;
+            z-index: 5;
         }
 
         @keyframes floatUp {
@@ -102,10 +109,10 @@
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* High Visibility Text Flow */
+        /* FOREGROUND SCROLLABLE CONTENT (STRICT Z-INDEX 10) */
         .main-content {
             position: relative;
-            z-index: 5;
+            z-index: 10;
             padding: 20px 15px 40px;
             text-align: center;
         }
@@ -119,10 +126,8 @@
             padding: 20px 10px;
             margin-bottom: 20px;
             background: transparent !important;
-            border: none !important;
         }
 
-        /* Heavy Contrast & Glow Effects for Maximum Readability */
         .header-sub {
             font-family: 'Cinzel', serif;
             font-size: 11px;
@@ -130,7 +135,7 @@
             color: #FFFFFF;
             font-weight: 700;
             margin-bottom: 12px;
-            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 5px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.8);
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 5px rgba(0,0,0,1);
         }
 
         h1 {
@@ -140,7 +145,7 @@
             margin: 5px 0 10px 0;
             line-height: 1.1;
             font-weight: 400;
-            text-shadow: 0 0 12px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1), 0 0 25px rgba(0,0,0,0.9);
+            text-shadow: 0 0 12px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
         }
 
         .section-heading {
@@ -151,7 +156,7 @@
             margin-bottom: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.9);
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
         }
 
         .body-stylish {
@@ -161,7 +166,7 @@
             letter-spacing: 1px;
             line-height: 1.8;
             font-weight: 600;
-            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1), 0 0 15px rgba(0,0,0,0.9);
+            text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
         }
 
         .highlight-text {
@@ -173,7 +178,6 @@
             text-shadow: 0 0 10px rgba(0,0,0,1), 0 2px 6px rgba(0,0,0,1);
         }
 
-        /* Scratch Card */
         .square-scratch-wrapper {
             position: relative;
             width: 220px;
@@ -182,8 +186,8 @@
             border-radius: 8px;
             border: 1.5px solid #FFD700;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0,0,0,0.9), 0 4px 15px rgba(0,0,0,0.8);
-            background: rgba(13, 6, 3, 0.7);
+            box-shadow: 0 0 20px rgba(0,0,0,0.9);
+            background: rgba(13, 6, 3, 0.75);
         }
 
         .scratch-secret-content {
@@ -203,7 +207,6 @@
             letter-spacing: 2px;
             color: #FFFFFF;
             font-weight: 700;
-            text-shadow: 0 0 5px rgba(0,0,0,0.9);
         }
 
         .scratch-secret-content h2 {
@@ -213,7 +216,6 @@
             margin-top: 4px;
             font-weight: 700;
             letter-spacing: 1px;
-            text-shadow: 0 0 5px rgba(0,0,0,0.9);
         }
 
         #scratch-canvas {
@@ -223,7 +225,6 @@
             z-index: 2;
         }
 
-        /* Countdown Grid */
         .timer-grid {
             display: grid; 
             grid-template-columns: repeat(4, 1fr);
@@ -233,7 +234,7 @@
         }
 
         .timer-unit {
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.7);
             padding: 10px 2px;
             border-radius: 6px;
             border: 1.5px solid #FFD700;
@@ -254,14 +255,13 @@
             font-weight: 700; 
             letter-spacing: 1px; 
             margin-top: 2px;
-            text-shadow: 0 0 5px rgba(0,0,0,1);
         }
 
         .map-btn {
             display: inline-block; 
             width: 85%; 
             padding: 11px;
-            background: rgba(0, 0, 0, 0.65);
+            background: rgba(0, 0, 0, 0.7);
             color: #FFD700; 
             text-decoration: none; 
             border-radius: 25px;
@@ -282,7 +282,7 @@
             padding: 12px; 
             margin-bottom: 12px;
             border: 1.5px solid #FFD700;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             border-radius: 6px; 
             font-family: 'Montserrat', sans-serif;
             font-size: 12px; 
@@ -297,7 +297,7 @@
         button.btn-submit {
             width: 100%; 
             padding: 12px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             color: #FFD700; 
             border: 1.5px solid #FFD700; 
             border-radius: 6px;
@@ -323,15 +323,17 @@
             </video>
         </div>
 
-        <div class="bg-layer" id="bg-top">
-            <video id="bgVid1" autoplay loop muted playsinline preload="auto">
-                <source src="bg.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="bg-layer" id="bg-bottom">
-            <video id="bgVid2" autoplay loop muted playsinline preload="auto">
-                <source src="bg2.mp4" type="video/mp4">
-            </video>
+        <div class="bg-fixed-container">
+            <div class="bg-layer" id="bg-top">
+                <video id="bgVid1" autoplay loop muted playsinline preload="auto">
+                    <source src="bg.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="bg-layer" id="bg-bottom">
+                <video id="bgVid2" autoplay loop muted playsinline preload="auto">
+                    <source src="bg2.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
 
         <div class="main-content">
@@ -434,7 +436,7 @@
             box.appendChild(spark);
         }
 
-        // Background Transition on Scroll
+        // Background Transition Observer
         const bgTop = document.getElementById('bg-top');
         const bgBottom = document.getElementById('bg-bottom');
         const sections = document.querySelectorAll('.scroll-section');
