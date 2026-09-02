@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayaz & Abida Wedding Invitation</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Clean & High Clarity Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,48 +30,38 @@
             position: relative;
             box-shadow: 0 15px 50px rgba(0,0,0,0.9);
             overflow: hidden;
+            border-radius: 12px;
+            border: 1.5px solid #FFD700;
         }
 
-        /* This is the ONLY element that scrolls now.
-           The background layer sits outside it, so it never moves. */
-        .content-scroll {
-            position: relative;
-            z-index: 10;
+        .card-wrapper.unlocked {
+            overflow-y: auto !important;
+        }
+
+        .card-wrapper::-webkit-scrollbar { width: 4px; }
+        .card-wrapper::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
+
+        /* Solid Video Background Layer Stack */
+        .bg-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; max-width: 420px;
+            height: 100vh; max-height: 900px;
+            transition: opacity 0.8s ease-in-out;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .bg-layer video {
             width: 100%;
             height: 100%;
-            overflow-y: hidden;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
-        }
-
-        .content-scroll.unlocked {
-            overflow-y: auto;
-        }
-
-        .content-scroll::-webkit-scrollbar { width: 3px; }
-        .content-scroll::-webkit-scrollbar-thumb { background: #F4C542; border-radius: 10px; }
-
-        /* FIXED BACKGROUND CONTAINER */
-        .bg-fixed-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .bg-media {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
             object-fit: cover;
-            transition: opacity 0.6s ease;
         }
 
         #bg-top { opacity: 1; z-index: 2; }
         #bg-bottom { opacity: 0; z-index: 1; }
 
-        /* OVERLAY ENVELOPE SCREEN */
+        /* Direct Tap Video Overlay */
         .video-overlay {
             position: absolute;
             top: 0; left: 0;
@@ -89,17 +80,19 @@
         }
 
         .envelope-video {
-            width: 100%; height: 100%;
-            object-fit: cover; display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
-        /* SPARKLES */
+        /* Ambient Gold Floating Particles */
         .sparkle {
             position: absolute; width: 3px; height: 3px;
-            background: #F4C542; border-radius: 50%;
+            background: #FFD700; border-radius: 50%;
             pointer-events: none; opacity: 0;
             animation: floatUp 6s infinite linear;
-            z-index: 5;
+            z-index: 4;
         }
 
         @keyframes floatUp {
@@ -108,88 +101,86 @@
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* FOREGROUND CONTENT */
+        /* Content Styling & Font Fixes */
         .main-content {
-            padding: 20px 15px 40px;
+            position: relative;
+            z-index: 5;
+            padding: 60px 20px 40px;
             text-align: center;
         }
 
         .scroll-section {
-            min-height: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 36px 12px;
+            padding: 30px 15px;
+            margin-bottom: 30px;
+            background: rgba(13, 6, 3, 0.45);
+            border-radius: 12px;
+            backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
         }
 
-        .scroll-section:first-child {
-            padding-top: 50px;
-        }
-
-        .scroll-section:last-child {
-            padding-bottom: 60px;
-        }
+        .hero-section { padding-top: 20px; }
 
         .header-sub {
             font-family: 'Cinzel', serif;
             font-size: 11px;
-            letter-spacing: 3px;
-            color: #F3E9D2;
-            font-weight: 600;
-            margin-bottom: 14px;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(0,0,0,0.9);
+            letter-spacing: 2.5px;
+            color: #FFFFFF;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
+        /* Fixed Elegant Font for 'Ayaz & Abida' */
         h1 {
             font-family: 'Alex Brush', cursive;
-            font-size: 58px;
-            color: #F4C542;
-            margin: 6px 0 14px 0;
-            line-height: 1.15;
+            font-size: 54px;
+            color: #FFD700;
+            margin: 5px 0;
+            line-height: 1.2;
             font-weight: 400;
-            text-shadow: -1.2px -1.2px 0 #000, 1.2px -1.2px 0 #000, -1.2px 1.2px 0 #000, 1.2px 1.2px 0 #000, 0 0 14px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
         }
 
         .section-heading {
             font-family: 'Cinzel', serif;
-            font-size: 17px;
-            color: #F4C542;
-            letter-spacing: 3px;
-            margin-bottom: 16px;
+            font-size: 16px;
+            color: #FFD700;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .body-stylish {
             font-family: 'Montserrat', sans-serif;
             font-size: 13px;
-            color: #F3E9D2;
-            letter-spacing: 0.6px;
-            line-height: 1.9;
-            font-weight: 500;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(0,0,0,0.9);
+            color: #FFFFFF;
+            letter-spacing: 1px;
+            line-height: 1.8;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
         }
 
         .highlight-text {
-            color: #F4C542;
+            color: #FFD700;
             font-family: 'Cinzel', serif;
             font-size: 14px;
             font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 0 10px rgba(0,0,0,0.9);
+            letter-spacing: 1.5px;
         }
 
+        /* Square Gold Scratch Card */
         .square-scratch-wrapper {
             position: relative;
-            width: 220px; height: 90px;
+            width: 220px;
+            height: 90px;
             margin: 20px auto 10px;
             border-radius: 8px;
-            border: 1.5px solid #F4C542;
+            border: 1.5px solid #FFD700;
             overflow: hidden;
-            box-shadow: 0 0 20px rgba(0,0,0,0.9);
-            background: rgba(13, 6, 3, 0.75);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            background: rgba(20, 10, 5, 0.7);
         }
 
         .scratch-secret-content {
@@ -207,19 +198,17 @@
             font-family: 'Cinzel', serif;
             font-size: 10px;
             letter-spacing: 2px;
-            color: #F3E9D2;
+            color: #FFFFFF;
             font-weight: 700;
-            text-shadow: -0.8px -0.8px 0 #000, 0.8px -0.8px 0 #000, -0.8px 0.8px 0 #000, 0.8px 0.8px 0 #000;
         }
 
         .scratch-secret-content h2 {
             font-family: 'Cinzel', serif;
             font-size: 14px;
-            color: #F4C542;
+            color: #FFD700;
             margin-top: 4px;
             font-weight: 700;
             letter-spacing: 1px;
-            text-shadow: -0.8px -0.8px 0 #000, 0.8px -0.8px 0 #000, -0.8px 0.8px 0 #000, 0.8px 0.8px 0 #000;
         }
 
         #scratch-canvas {
@@ -229,102 +218,120 @@
             z-index: 2;
         }
 
+        /* Countdown Timer */
         .timer-grid {
             display: grid; 
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px; margin-top: 15px; width: 100%;
+            gap: 8px; 
+            margin-top: 15px;
         }
 
         .timer-unit {
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(13, 6, 3, 0.7);
             padding: 10px 2px;
             border-radius: 6px;
-            border: 1.5px solid #F4C542;
-            box-shadow: 0 0 12px rgba(0,0,0,0.8);
+            border: 1px solid #FFD700;
         }
 
         .timer-unit span { 
-            font-size: 18px; font-weight: 700; 
-            color: #F4C542; font-family: 'Cinzel', serif; 
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #FFD700; 
+            font-family: 'Cinzel', serif; 
         }
         
         .timer-unit p { 
-            font-size: 8px; color: #F3E9D2; 
-            font-weight: 700; letter-spacing: 1px; margin-top: 2px;
+            font-size: 8px; 
+            color: #FFFFFF; 
+            font-weight: 600; 
+            letter-spacing: 1px; 
+            margin-top: 2px;
         }
 
         .map-btn {
-            display: inline-block; width: 85%; padding: 11px;
-            background: rgba(0, 0, 0, 0.7); color: #F4C542; 
-            text-decoration: none; border-radius: 25px; margin-top: 15px; 
-            font-family: 'Cinzel', serif; font-size: 11px; 
-            letter-spacing: 2px; font-weight: 700;
-            border: 1.5px solid #F4C542;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            display: inline-block; 
+            width: 85%; 
+            padding: 11px;
+            background: rgba(13, 6, 3, 0.8);
+            color: #FFD700; 
+            text-decoration: none; 
+            border-radius: 25px;
+            margin-top: 15px; 
+            font-family: 'Cinzel', serif;
+            font-size: 11px; 
+            letter-spacing: 2px; 
+            font-weight: 700;
+            border: 1.5px solid #FFD700;
         }
-
-        form { width: 100%; }
 
         input, textarea {
-            width: 100%; padding: 12px; margin-bottom: 12px;
-            border: 1.5px solid #F4C542;
-            background: rgba(0, 0, 0, 0.75);
-            border-radius: 6px; font-family: 'Montserrat', sans-serif;
-            font-size: 12px; outline: none; color: #F3E9D2; font-weight: 600;
-            box-shadow: 0 0 10px rgba(0,0,0,0.8);
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 12px;
+            border: 1px solid #FFD700;
+            background: rgba(13, 6, 3, 0.8);
+            border-radius: 6px; 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px; 
+            outline: none; 
+            color: #FFFFFF;
+            font-weight: 600;
         }
 
-        input::placeholder, textarea::placeholder { color: rgba(243, 233, 210, 0.7); }
+        input::placeholder, textarea::placeholder { color: rgba(255, 255, 255, 0.7); }
 
         button.btn-submit {
-            width: 100%; padding: 12px;
-            background: rgba(0, 0, 0, 0.75); color: #F4C542; 
-            border: 1.5px solid #F4C542; border-radius: 6px;
-            font-family: 'Cinzel', serif; font-size: 11px; font-weight: 700;
-            letter-spacing: 2px; cursor: pointer;
-            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-            box-shadow: 0 0 15px rgba(0,0,0,0.8);
+            width: 100%; 
+            padding: 12px;
+            background: rgba(13, 6, 3, 0.8);
+            color: #FFD700; 
+            border: 1.5px solid #FFD700; 
+            border-radius: 6px;
+            font-family: 'Cinzel', serif; 
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px; 
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+    <audio id="bg-music" src="wedding-song.mp3" loop></audio>
 
     <div class="card-wrapper" id="particle-box">
         
-        <!-- TAP TO OPEN OVERLAY -->
+        <!-- Video Screen Overlay -->
         <div class="video-overlay" id="videoOverlay" onclick="handleCardOpen()">
             <video id="envelopeVid" class="envelope-video" playsinline muted preload="auto">
                 <source src="envelope.mp4#t=0.001" type="video/mp4">
             </video>
         </div>
 
-        <!-- FIXED BACKGROUND LAYER -->
-        <div class="bg-fixed-container">
-            <!-- First Background Video/Image -->
-            <video id="bg-top" class="bg-media" autoplay loop muted playsinline preload="auto">
+        <!-- Dynamic Dual Video Background Stack -->
+        <div class="bg-layer" id="bg-top">
+            <video id="bgVid1" autoplay loop muted playsinline preload="auto">
                 <source src="bg.mp4" type="video/mp4">
             </video>
-            <!-- Second Background Video/Image -->
-            <video id="bg-bottom" class="bg-media" autoplay loop muted playsinline preload="auto">
+        </div>
+        <div class="bg-layer" id="bg-bottom">
+            <video id="bgVid2" autoplay loop muted playsinline preload="auto">
                 <source src="bg2.mp4" type="video/mp4">
             </video>
         </div>
 
-        <!-- SCROLLABLE CONTENT (background never moves) -->
-        <div class="content-scroll" id="content-scroll">
+        <!-- Main Content -->
         <div class="main-content">
             
-            <div class="scroll-section" data-bg="top">
+            <!-- PAGE 1: HERO -->
+            <div class="scroll-section hero-section" data-bg="top">
                 <p class="header-sub">IN THE NAME OF ALLAH, THE MOST GRACIOUS</p>
                 <h1>Ayaz & Abida</h1>
                 <p class="body-stylish" style="margin: 10px 0 15px;">
                     Together with their families<br>request the pleasure of your company
                 </p>
                 
+                <!-- Square Gold Scratch Card -->
                 <div class="square-scratch-wrapper">
                     <div class="scratch-secret-content">
                         <p>✨ NIKAH CEREMONY ✨</p>
@@ -334,26 +341,29 @@
                 </div>
             </div>
 
+            <!-- PAGE 2: NIKAH CEREMONY -->
             <div class="scroll-section" data-bg="top">
                 <div class="section-heading">💍 The Nikah Ceremony</div>
                 <p class="highlight-text">Monday, December 07, 2026</p>
                 <p class="body-stylish" style="margin-top: 10px;">
-                    <span style="color: #F4C542; font-weight: 700;">VENUE</span><br>
+                    <span style="color: #FFD700; font-weight: 700;">VENUE</span><br>
                     Titanic Banquet Hall
                 </p>
                 <a href="https://maps.app.goo.gl/KWu3cgBN6N49fTcb8" target="_blank" class="map-btn">LOCATION MAP</a>
             </div>
 
+            <!-- PAGE 3: WALIMA CEREMONY -->
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">✨ The Grand Walima</div>
                 <p class="highlight-text">Wednesday, December 09, 2026</p>
                 <p class="body-stylish" style="margin-top: 10px;">
-                    <span style="color: #F4C542; font-weight: 700;">VENUE</span><br>
+                    <span style="color: #FFD700; font-weight: 700;">VENUE</span><br>
                     Jannat Banquet Hall
                 </p>
                 <a href="https://maps.app.goo.gl/9UB9KgKGyMZNvLnX8" target="_blank" class="map-btn">LOCATION MAP</a>
             </div>
 
+            <!-- PAGE 4: COUNTDOWN TIMER -->
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">COUNTDOWN TO FOREVER</div>
                 <div class="timer-grid">
@@ -364,6 +374,7 @@
                 </div>
             </div>
 
+            <!-- PAGE 5: RSVP -->
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">SEND YOUR BLESSINGS</div>
                 <form onsubmit="event.preventDefault(); alert('Thank you for your blessings!');">
@@ -374,86 +385,66 @@
             </div>
 
         </div>
-        </div>
     </div>
 
     <script>
         const videoOverlay = document.getElementById('videoOverlay');
         const cardWrapper = document.getElementById('particle-box');
-        const contentScroll = document.getElementById('content-scroll');
         const bgMusic = document.getElementById('bg-music');
         const envelopeVid = document.getElementById('envelopeVid');
-        const bgTop = document.getElementById('bg-top');
-        const bgBottom = document.getElementById('bg-bottom');
+        const bgVid1 = document.getElementById('bgVid1');
+        const bgVid2 = document.getElementById('bgVid2');
         let hasOpened = false;
 
         function handleCardOpen() {
             if (hasOpened) return;
             hasOpened = true;
 
-            if (envelopeVid) envelopeVid.play().catch(err => console.log('envelope play failed:', err));
-            if (bgMusic) bgMusic.play().catch(err => console.log('music play failed:', err));
-
-            // Play bg-top immediately
-            if (bgTop) bgTop.play().catch(err => console.log('bg-top play failed:', err));
-
-            // bg-bottom: force load + play, and log any real error (404, decode error, etc.)
-            if (bgBottom) {
-                bgBottom.load(); // ensures browser actually starts fetching bg2.mp4
-                bgBottom.play().catch(err => console.log('bg-bottom play failed:', err));
-                bgBottom.addEventListener('error', () => {
-                    console.error('bg2.mp4 FAILED TO LOAD. Check the file path/name on GitHub.');
-                });
-            }
+            if (envelopeVid) envelopeVid.play().catch(() => {});
+            if (bgMusic) bgMusic.play().catch(() => {});
+            if (bgVid1) bgVid1.play().catch(() => {});
+            if (bgVid2) bgVid2.play().catch(() => {});
 
             setTimeout(() => {
                 videoOverlay.classList.add('fade-out');
-                contentScroll.classList.add('unlocked');
+                cardWrapper.classList.add('unlocked');
             }, 1200);
         }
 
-        // SCROLL LISTENER — single stable boundary point, no flicker.
-        // Find the first section marked data-bg="bottom" (the Walima section)
-        // and switch backgrounds once the scroll passes its midpoint.
-        const firstBottomSection = document.querySelector('.scroll-section[data-bg="bottom"]');
-        let isShowingBottom = false;
-
-        function updateBackground() {
-            if (!firstBottomSection) return;
-            const rect = firstBottomSection.getBoundingClientRect();
-            const wrapperRect = contentScroll.getBoundingClientRect();
-            // Position of the section's top relative to the scroll wrapper's viewport
-            const relativeTop = rect.top - wrapperRect.top;
-            const triggerPoint = wrapperRect.height * 0.4; // switch when section top reaches 40% down the viewport
-
-            const shouldShowBottom = relativeTop <= triggerPoint;
-
-            if (shouldShowBottom !== isShowingBottom) {
-                isShowingBottom = shouldShowBottom;
-                if (shouldShowBottom) {
-                    bgTop.style.opacity = '0';
-                    bgBottom.style.opacity = '1';
-                    bgBottom.play().catch(err => console.log('bg-bottom play failed on scroll:', err));
-                } else {
-                    bgTop.style.opacity = '1';
-                    bgBottom.style.opacity = '0';
-                }
-            }
-        }
-
-        contentScroll.addEventListener('scroll', updateBackground);
-        // Run once in case the page loads already scrolled
-        updateBackground();
-
-        // Floating Gold Sparkles
+        // Sparkles Particles
+        const box = document.getElementById('particle-box');
         for (let i = 0; i < 15; i++) {
             let spark = document.createElement('div');
             spark.className = 'sparkle';
             spark.style.left = Math.random() * 100 + '%';
             spark.style.animationDuration = (Math.random() * 3 + 5) + 's';
             spark.style.animationDelay = Math.random() * 3 + 's';
-            cardWrapper.appendChild(spark);
+            box.appendChild(spark);
         }
+
+        // Reliable Video Switcher on Scroll
+        const bgTop = document.getElementById('bg-top');
+        const bgBottom = document.getElementById('bg-bottom');
+        const sections = document.querySelectorAll('.scroll-section');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const targetBg = entry.target.getAttribute('data-bg');
+                    if (targetBg === 'bottom') {
+                        bgTop.style.opacity = '0';
+                        bgBottom.style.opacity = '1';
+                        if(bgVid2) bgVid2.play().catch(() => {});
+                    } else {
+                        bgTop.style.opacity = '1';
+                        bgBottom.style.opacity = '0';
+                        if(bgVid1) bgVid1.play().catch(() => {});
+                    }
+                }
+            });
+        }, { threshold: 0.15 });
+
+        sections.forEach(sec => observer.observe(sec));
 
         // Scratch Card Logic
         const canvas = document.getElementById('scratch-canvas');
@@ -501,7 +492,7 @@
             canvas.addEventListener('touchmove', scratch, {passive: true});
         }
 
-        // Countdown Logic
+        // Countdown Timer
         const weddingDate = new Date("Dec 7, 2026 10:00:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
