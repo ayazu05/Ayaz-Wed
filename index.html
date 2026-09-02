@@ -492,7 +492,8 @@
             canvas.addEventListener('touchmove', scratch, {passive: true});
         }
 
-        const weddingDate = new Date("Dec 7, 2026 19:00:00").getTime();
+        // Updated countdown target date to Dec 7, 2026 00:01:00
+        const weddingDate = new Date("Dec 7, 2026 00:01:00").getTime();
         setInterval(() => {
             const now = new Date().getTime();
             const diff = weddingDate - now;
