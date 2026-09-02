@@ -390,27 +390,38 @@
             }, 1200);
         }
 
-        // SCROLL LISTENER — switch based on which section is actually visible (data-bg),
-        // instead of raw scroll percentage of the whole page.
-        const sections = document.querySelectorAll('.scroll-section');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const which = entry.target.getAttribute('data-bg');
-                    if (which === 'bottom') {
-                        bgTop.style.opacity = '0';
-                        bgBottom.style.opacity = '1';
-                        // safety: make sure it's actually playing once visible
-                        bgBottom.play().catch(err => console.log('bg-bottom play failed on scroll:', err));
-                    } else {
-                        bgTop.style.opacity = '1';
-                        bgBottom.style.opacity = '0';
-                    }
-                }
-            });
-        }, { threshold: 0.5 });
+        // SCROLL LISTENER — single stable boundary point, no flicker.
+        // Find the first section marked data-bg="bottom" (the Walima section)
+        // and switch backgrounds once the scroll passes its midpoint.
+        const firstBottomSection = document.querySelector('.scroll-section[data-bg="bottom"]');
+        let isShowingBottom = false;
 
-        sections.forEach(sec => observer.observe(sec));
+        function updateBackground() {
+            if (!firstBottomSection) return;
+            const rect = firstBottomSection.getBoundingClientRect();
+            const wrapperRect = cardWrapper.getBoundingClientRect();
+            // Position of the section's top relative to the scroll wrapper's viewport
+            const relativeTop = rect.top - wrapperRect.top;
+            const triggerPoint = wrapperRect.height * 0.4; // switch when section top reaches 40% down the viewport
+
+            const shouldShowBottom = relativeTop <= triggerPoint;
+
+            if (shouldShowBottom !== isShowingBottom) {
+                isShowingBottom = shouldShowBottom;
+                if (shouldShowBottom) {
+                    bgTop.style.opacity = '0';
+                    bgBottom.style.opacity = '1';
+                    bgBottom.play().catch(err => console.log('bg-bottom play failed on scroll:', err));
+                } else {
+                    bgTop.style.opacity = '1';
+                    bgBottom.style.opacity = '0';
+                }
+            }
+        }
+
+        cardWrapper.addEventListener('scroll', updateBackground);
+        // Run once in case the page loads already scrolled
+        updateBackground();
 
         // Floating Gold Sparkles
         for (let i = 0; i < 15; i++) {
