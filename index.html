@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ayaz & Abida Wedding Invitation</title>
     
-    <!-- Clean & High Clarity Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -30,24 +29,24 @@
             position: relative;
             box-shadow: 0 15px 50px rgba(0,0,0,0.9);
             overflow: hidden;
-            border-radius: 12px;
-            border: 1.5px solid #FFD700;
+            border-radius: 0;
+            border: none;
         }
 
         .card-wrapper.unlocked {
             overflow-y: auto !important;
         }
 
-        .card-wrapper::-webkit-scrollbar { width: 4px; }
+        .card-wrapper::-webkit-scrollbar { width: 3px; }
         .card-wrapper::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
 
-        /* Solid Video Background Layer Stack */
+        /* Background Layers */
         .bg-layer {
-            position: fixed;
+            position: absolute;
             top: 0; left: 0;
-            width: 100%; max-width: 420px;
-            height: 100vh; max-height: 900px;
-            transition: opacity 0.8s ease-in-out;
+            width: 100%;
+            height: 100%;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
             pointer-events: none;
             overflow: hidden;
         }
@@ -56,10 +55,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
         }
 
-        #bg-top { opacity: 1; z-index: 2; }
-        #bg-bottom { opacity: 0; z-index: 1; }
+        #bg-top { opacity: 1; visibility: visible; z-index: 2; }
+        #bg-bottom { opacity: 0; visibility: hidden; z-index: 1; }
 
         /* Direct Tap Video Overlay */
         .video-overlay {
@@ -101,7 +101,7 @@
             100% { transform: translateY(-10vh) scale(1); opacity: 0; }
         }
 
-        /* Content Styling & Font Fixes */
+        /* Clean Typography */
         .main-content {
             position: relative;
             z-index: 5;
@@ -110,15 +110,14 @@
         }
 
         .scroll-section {
-            padding: 30px 15px;
-            margin-bottom: 30px;
-            background: rgba(13, 6, 3, 0.45);
-            border-radius: 12px;
-            backdrop-filter: blur(3px);
-            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 35px 10px;
+            margin-bottom: 20px;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
         }
 
-        .hero-section { padding-top: 20px; }
+        .hero-section { padding-top: 15px; }
 
         .header-sub {
             font-family: 'Cinzel', serif;
@@ -127,18 +126,17 @@
             color: #FFFFFF;
             font-weight: 700;
             margin-bottom: 12px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
         }
 
-        /* Fixed Elegant Font for 'Ayaz & Abida' */
         h1 {
             font-family: 'Alex Brush', cursive;
-            font-size: 54px;
+            font-size: 56px;
             color: #FFD700;
             margin: 5px 0;
             line-height: 1.2;
             font-weight: 400;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.9);
         }
 
         .section-heading {
@@ -149,7 +147,7 @@
             margin-bottom: 14px;
             font-weight: 700;
             text-transform: uppercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
         }
 
         .body-stylish {
@@ -159,7 +157,7 @@
             letter-spacing: 1px;
             line-height: 1.8;
             font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
         }
 
         .highlight-text {
@@ -168,9 +166,10 @@
             font-size: 14px;
             font-weight: 700;
             letter-spacing: 1.5px;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.9);
         }
 
-        /* Square Gold Scratch Card */
+        /* Scratch Card */
         .square-scratch-wrapper {
             position: relative;
             width: 220px;
@@ -180,7 +179,7 @@
             border: 1.5px solid #FFD700;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            background: rgba(20, 10, 5, 0.7);
+            background: rgba(13, 6, 3, 0.6);
         }
 
         .scratch-secret-content {
@@ -218,7 +217,7 @@
             z-index: 2;
         }
 
-        /* Countdown Timer */
+        /* Timer Grid */
         .timer-grid {
             display: grid; 
             grid-template-columns: repeat(4, 1fr);
@@ -227,7 +226,7 @@
         }
 
         .timer-unit {
-            background: rgba(13, 6, 3, 0.7);
+            background: rgba(13, 6, 3, 0.6);
             padding: 10px 2px;
             border-radius: 6px;
             border: 1px solid #FFD700;
@@ -252,7 +251,7 @@
             display: inline-block; 
             width: 85%; 
             padding: 11px;
-            background: rgba(13, 6, 3, 0.8);
+            background: rgba(13, 6, 3, 0.7);
             color: #FFD700; 
             text-decoration: none; 
             border-radius: 25px;
@@ -269,7 +268,7 @@
             padding: 12px; 
             margin-bottom: 12px;
             border: 1px solid #FFD700;
-            background: rgba(13, 6, 3, 0.8);
+            background: rgba(13, 6, 3, 0.7);
             border-radius: 6px; 
             font-family: 'Montserrat', sans-serif;
             font-size: 12px; 
@@ -283,7 +282,7 @@
         button.btn-submit {
             width: 100%; 
             padding: 12px;
-            background: rgba(13, 6, 3, 0.8);
+            background: rgba(13, 6, 3, 0.7);
             color: #FFD700; 
             border: 1.5px solid #FFD700; 
             border-radius: 6px;
@@ -323,7 +322,6 @@
         <!-- Main Content -->
         <div class="main-content">
             
-            <!-- PAGE 1: HERO -->
             <div class="scroll-section hero-section" data-bg="top">
                 <p class="header-sub">IN THE NAME OF ALLAH, THE MOST GRACIOUS</p>
                 <h1>Ayaz & Abida</h1>
@@ -331,7 +329,6 @@
                     Together with their families<br>request the pleasure of your company
                 </p>
                 
-                <!-- Square Gold Scratch Card -->
                 <div class="square-scratch-wrapper">
                     <div class="scratch-secret-content">
                         <p>✨ NIKAH CEREMONY ✨</p>
@@ -341,7 +338,6 @@
                 </div>
             </div>
 
-            <!-- PAGE 2: NIKAH CEREMONY -->
             <div class="scroll-section" data-bg="top">
                 <div class="section-heading">💍 The Nikah Ceremony</div>
                 <p class="highlight-text">Monday, December 07, 2026</p>
@@ -352,7 +348,6 @@
                 <a href="https://maps.app.goo.gl/KWu3cgBN6N49fTcb8" target="_blank" class="map-btn">LOCATION MAP</a>
             </div>
 
-            <!-- PAGE 3: WALIMA CEREMONY -->
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">✨ The Grand Walima</div>
                 <p class="highlight-text">Wednesday, December 09, 2026</p>
@@ -363,7 +358,6 @@
                 <a href="https://maps.app.goo.gl/9UB9KgKGyMZNvLnX8" target="_blank" class="map-btn">LOCATION MAP</a>
             </div>
 
-            <!-- PAGE 4: COUNTDOWN TIMER -->
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">COUNTDOWN TO FOREVER</div>
                 <div class="timer-grid">
@@ -374,7 +368,6 @@
                 </div>
             </div>
 
-            <!-- PAGE 5: RSVP -->
             <div class="scroll-section" data-bg="bottom">
                 <div class="section-heading">SEND YOUR BLESSINGS</div>
                 <form onsubmit="event.preventDefault(); alert('Thank you for your blessings!');">
@@ -395,6 +388,12 @@
         const bgVid1 = document.getElementById('bgVid1');
         const bgVid2 = document.getElementById('bgVid2');
         let hasOpened = false;
+
+        // Force videos to preload & play immediately
+        window.addEventListener('DOMContentLoaded', () => {
+            if (bgVid1) bgVid1.play().catch(() => {});
+            if (bgVid2) bgVid2.play().catch(() => {});
+        });
 
         function handleCardOpen() {
             if (hasOpened) return;
@@ -422,7 +421,7 @@
             box.appendChild(spark);
         }
 
-        // Reliable Video Switcher on Scroll
+        // Background Switch Logic
         const bgTop = document.getElementById('bg-top');
         const bgBottom = document.getElementById('bg-bottom');
         const sections = document.querySelectorAll('.scroll-section');
@@ -433,16 +432,20 @@
                     const targetBg = entry.target.getAttribute('data-bg');
                     if (targetBg === 'bottom') {
                         bgTop.style.opacity = '0';
+                        bgTop.style.visibility = 'hidden';
                         bgBottom.style.opacity = '1';
+                        bgBottom.style.visibility = 'visible';
                         if(bgVid2) bgVid2.play().catch(() => {});
                     } else {
                         bgTop.style.opacity = '1';
+                        bgTop.style.visibility = 'visible';
                         bgBottom.style.opacity = '0';
+                        bgBottom.style.visibility = 'hidden';
                         if(bgVid1) bgVid1.play().catch(() => {});
                     }
                 }
             });
-        }, { threshold: 0.15 });
+        }, { threshold: 0.2 });
 
         sections.forEach(sec => observer.observe(sec));
 
