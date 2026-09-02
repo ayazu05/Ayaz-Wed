@@ -31,12 +31,24 @@
             overflow: hidden;
         }
 
-        .card-wrapper.unlocked {
-            overflow-y: auto !important;
+        /* This is the ONLY element that scrolls now.
+           The background layer sits outside it, so it never moves. */
+        .content-scroll {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            overflow-y: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 88%, transparent 100%);
         }
 
-        .card-wrapper::-webkit-scrollbar { width: 3px; }
-        .card-wrapper::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
+        .content-scroll.unlocked {
+            overflow-y: auto;
+        }
+
+        .content-scroll::-webkit-scrollbar { width: 3px; }
+        .content-scroll::-webkit-scrollbar-thumb { background: #FFD700; border-radius: 10px; }
 
         /* FIXED BACKGROUND CONTAINER */
         .bg-fixed-container {
@@ -98,8 +110,6 @@
 
         /* FOREGROUND CONTENT */
         .main-content {
-            position: relative;
-            z-index: 10;
             padding: 20px 15px 40px;
             text-align: center;
         }
@@ -295,7 +305,8 @@
             </video>
         </div>
 
-        <!-- FOREGROUND CONTENT -->
+        <!-- SCROLLABLE CONTENT (background never moves) -->
+        <div class="content-scroll" id="content-scroll">
         <div class="main-content">
             
             <div class="scroll-section" data-bg="top">
@@ -354,11 +365,13 @@
             </div>
 
         </div>
+        </div>
     </div>
 
     <script>
         const videoOverlay = document.getElementById('videoOverlay');
         const cardWrapper = document.getElementById('particle-box');
+        const contentScroll = document.getElementById('content-scroll');
         const bgMusic = document.getElementById('bg-music');
         const envelopeVid = document.getElementById('envelopeVid');
         const bgTop = document.getElementById('bg-top');
@@ -386,7 +399,7 @@
 
             setTimeout(() => {
                 videoOverlay.classList.add('fade-out');
-                cardWrapper.classList.add('unlocked');
+                contentScroll.classList.add('unlocked');
             }, 1200);
         }
 
@@ -399,7 +412,7 @@
         function updateBackground() {
             if (!firstBottomSection) return;
             const rect = firstBottomSection.getBoundingClientRect();
-            const wrapperRect = cardWrapper.getBoundingClientRect();
+            const wrapperRect = contentScroll.getBoundingClientRect();
             // Position of the section's top relative to the scroll wrapper's viewport
             const relativeTop = rect.top - wrapperRect.top;
             const triggerPoint = wrapperRect.height * 0.4; // switch when section top reaches 40% down the viewport
@@ -419,7 +432,7 @@
             }
         }
 
-        cardWrapper.addEventListener('scroll', updateBackground);
+        contentScroll.addEventListener('scroll', updateBackground);
         // Run once in case the page loads already scrolled
         updateBackground();
 
