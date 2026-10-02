@@ -489,7 +489,7 @@
 
         <h1 class="couple-name"><span class="styled-letter-a">A</span>yaz</h1>
         <div class="ampersand">&</div>
-        <h1 class="couple-name">Abida</h1>
+        <h1 class="couple-name"><span class="styled-letter-a">A</span>bida</h1>
 
         <div class="scroll-indicator">
           <span>SCROLL DOWN</span>
@@ -503,8 +503,8 @@
           <canvas id="scratch-canvas" width="180" height="160"></canvas>
           <div class="scratch-reveal-content">
             <i class="fas fa-calendar-heart" style="font-size:1.2rem; color:var(--text-burgundy); margin-bottom:4px;"></i>
-            <h3>Nikah Ceremony</h3>
-            <p style="font-size:0.85rem; font-weight:700; color:var(--text-black);">07 December 2026</p>
+            <h3>The Nikah Ceremony</h3>
+            <p style="font-size:0.85rem; font-weight:700; color:var(--text-black);">Monday, 07 December 2026</p>
             <p style="font-size:0.7rem; color:var(--text-black); margin-top:2px; font-weight:600;">Save The Date</p>
           </div>
         </div>
@@ -524,13 +524,13 @@
       <section class="invitation-section" data-bg="bg-video-main">
         <h2 class="section-title">Events Schedule</h2>
         <div class="event-card">
-          <h3 class="event-name">Nikah Ceremony</h3>
-          <p class="event-details"><i class="far fa-calendar-alt"></i> 07 December 2026</p>
+          <h3 class="event-name">The Nikah Ceremony</h3>
+          <p class="event-details"><i class="far fa-calendar-alt"></i> Monday, December 07, 2026</p>
           <p class="event-details"><i class="far fa-clock"></i> Evening Ceremony</p>
         </div>
         <div class="event-card">
-          <h3 class="event-name">Walima Reception</h3>
-          <p class="event-details"><i class="far fa-calendar-alt"></i> 09 December 2026</p>
+          <h3 class="event-name">The Grand Walima</h3>
+          <p class="event-details"><i class="far fa-calendar-alt"></i> Wednesday, December 09, 2026</p>
           <p class="event-details"><i class="far fa-clock"></i> Evening Onwards</p>
         </div>
       </section>
@@ -539,13 +539,13 @@
         <h2 class="section-title">Venue & Location</h2>
         <div class="map-clean-wrapper">
           <h3 class="map-title">Titanic Banquet Hall</h3>
-          <p class="map-address"><i class="fas fa-map-marker-alt"></i> Venue for Nikah Ceremony</p>
+          <p class="map-address"><i class="fas fa-map-marker-alt"></i> Venue for The Nikah Ceremony</p>
           <iframe class="map-frame" src="https://maps.google.com/maps?q=28.677538,77.269709&t=h&z=17&output=embed" allowfullscreen="" loading="lazy"></iframe>
           <a href="https://www.google.com/maps?q=28.677538,77.269709&t=h" target="_blank" class="venue-btn"><i class="fas fa-directions"></i> Open in Google Maps</a>
         </div>
         <div class="map-clean-wrapper">
           <h3 class="map-title">Jannat Banquet Hall</h3>
-          <p class="map-address"><i class="fas fa-map-marker-alt"></i> Venue for Walima Reception</p>
+          <p class="map-address"><i class="fas fa-map-marker-alt"></i> Venue for The Grand Walima</p>
           <iframe class="map-frame" src="https://maps.google.com/maps?q=28.683228,77.273940&t=h&z=17&output=embed" allowfullscreen="" loading="lazy"></iframe>
           <a href="https://www.google.com/maps?q=28.683228,77.273940&t=h" target="_blank" class="venue-btn"><i class="fas fa-directions"></i> Open in Google Maps</a>
         </div>
@@ -555,8 +555,8 @@
     <section class="invitation-section cta-parallax-banner">
       <img class="cta-parallax-bg" src="bg2.jpg" alt="Bottom Banner Parallax">
       <div class="cta-content-box">
-        <h2 class="footer-title">We can'wait to celebrate<br>with you!</h2>
-        <p class="footer-names"><span class="styled-letter-a">A</span>yaz & Abida</p>
+        <h2 class="footer-title">We can't wait to celebrate<br>with you!</h2>
+        <p class="footer-names"><span class="styled-letter-a">A</span>yaz & <span class="styled-letter-a">A</span>bida</p>
       </div>
     </section>
   </main>
@@ -588,7 +588,7 @@
 
       if (envVideo) {
         envVideo.classList.add('playing');
-        envVideo.muted = true; // Envelope sound is now muted
+        envVideo.muted = true; // Envelope sound mute kar diya gaya hai
         const playEnv = envVideo.play();
         if (playEnv !== undefined) {
           playEnv.then(() => {
@@ -688,4 +688,65 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const part
+      const particleColors = ['#ffffff', '#fff0f5', '#f8bbd0', '#e91e63', '#ffd700'];
+      for (let i = 0; i < 800; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = Math.random() * 1.8 + 0.4;
+        ctx.fillStyle = particleColors[Math.floor(Math.random() * particleColors.length)];
+        ctx.globalAlpha = Math.random() * 0.9 + 0.1;
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.globalAlpha = 1.0;
+    }
+
+    initGlitter();
+
+    let isScratching = false;
+
+    function scratch(e) {
+      if (!isScratching) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+      const y = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 16, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', () => isScratching = true);
+    canvas.addEventListener('mouseup', () => isScratching = false);
+    canvas.addEventListener('mousemove', scratch);
+    canvas.addEventListener('touchstart', () => isScratching = true);
+    canvas.addEventListener('touchend', () => isScratching = false);
+    canvas.addEventListener('touchmove', scratch);
+
+    // Live Countdown Timer targeting The Nikah Ceremony (December 07, 2026)
+    const weddingDate = new Date('December 07, 2026 18:00:00').getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = weddingDate - now;
+
+      if (distance < 0) return;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('cd-days').innerText = String(days).padStart(2, '0');
+      document.getElementById('cd-hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('cd-mins').innerText = String(mins).padStart(2, '0');
+      document.getElementById('cd-secs').innerText = String(secs).padStart(2, '0');
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+</body>
+</html>
